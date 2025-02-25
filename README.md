@@ -360,39 +360,40 @@ This app aims to provide sample application that can be used as a developers gui
     },
 ##  static String subscribedApps = '/api/products/subscribed';
 
-/**
- * This TypeScript function retrieves subscribed products for a specific user based on their ID.
- *
- * :param _user: The `_user` parameter is an object representing a user. It seems to have an `id`
- * property that is used to find products related to the user's subscriptions
- * :type _user: any
- * :return: The `getSubscribedProductbyUserId` function returns a Promise with an object containing the
- * following properties:
- * - `status` (string): Indicates the status of the operation, in this case, 'success'.
- * - `data` (optional array of Products): Contains an array of Products related to the user's
- * subscriptions.
- * - `message` (optional string): A message that can be included in the
- */
-     "/products/subscribed": {
-      "get": {
-        "operationId": "ProductsController_getAllSubscribedProducts",
-        "summary": "Get all  subscribed products against userId also used by appSphere",
-        "parameters": [],
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "products"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
+  /**
+   * This TypeScript function retrieves subscribed products for a specific user based on their ID.
+   *
+   * :param _user: The `_user` parameter is an object representing a user. It seems to have an `id`
+   * property that is used to find products related to the user's subscriptions
+   * :type _user: any
+   * :return: The `getSubscribedProductbyUserId` function returns a Promise with an object containing the
+   * following properties:
+   * - `status` (string): Indicates the status of the operation, in this case, 'success'.
+   * - `data` (optional array of Products): Contains an array of Products related to the user's
+   * subscriptions.
+   * - `message` (optional string): A message that can be included in the
+   */
+   
+"/products/subscribed": {
+"get": {
+  "operationId": "ProductsController_getAllSubscribedProducts",
+  "summary": "Get all  subscribed products against userId also used by appSphere",
+  "parameters": [],
+  "responses": {
+    "401": {
+      "description": "Unauthorized to access this resource."
+    }
+  },
+  "tags": [
+    "products"
+  ],
+  "security": [
+    {
+      "bearer": []
+    }
+  ]
+}
+},
 
 
 ##  static String products = "/api/products";
@@ -409,53 +410,53 @@ This app aims to provide sample application that can be used as a developers gui
  * representing the total count of products.
 
  */
- "/products": {
-      "get": {
-        "operationId": "ProductsController_getAllProductsPaginated",
-        "summary": "fetch products api also used by appSphere",
-        "parameters": [
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "pageSize",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "query",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "categoryId",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
+    "/products": {
+    "get": {
+      "operationId": "ProductsController_getAllProductsPaginated",
+      "summary": "fetch products api also used by appSphere",
+      "parameters": [
+        {
+          "name": "page",
+          "required": false,
+          "in": "query",
+          "schema": {
+            "type": "number"
           }
         },
-        "tags": [
-          "products"
-        ]
+        {
+          "name": "pageSize",
+          "required": false,
+          "in": "query",
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "name": "query",
+          "required": false,
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "categoryId",
+          "required": false,
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": ""
+        }
       },
+      "tags": [
+        "products"
+      ]
+    },
 
     },
 
@@ -829,143 +830,146 @@ This app aims to provide sample application that can be used as a developers gui
 
 ##  static String createApprovedPayments = "/api/subscription/createApprovedPayments";
 
-/**
- * The function `Approvedcreate` performs various checks and processes to create a subscription for an
- * approved product based on user and header information.
- *
- * :param CreateApprovedSubscriptionDto: CreateApprovedSubscriptionDto is an object containing data for
- * creating an approved subscription. It likely includes properties such as appIdentifier, packageID,
- * priceID, and other details required to set up a subscription for a user
- * :type CreateApprovedSubscriptionDto: CreateApprovedSubscriptionDto
- * :param HeaderDto: HeaderDto is an object containing key-value pairs that provide information about
- * the request being made. In the code snippet provided, the HeaderDto is used to compare the key with
- * the key stored in the database for a specific product approval. It is used to verify the
- * authenticity of the request and ensure that the
- * :type HeaderDto: HeaderDto2
- * :param user: The `user` parameter in the `Approvedcreate` function seems to represent the user who
- * is initiating the creation of an approved subscription. This user is likely authenticated and has
- * specific details associated with them, such as an `id` that is used to identify them in the system
- * :type user: User
- * :return: The function `Approvedcreate` returns different responses based on the conditions met
- * during its execution. Here are the possible return values:
- */
- "/subscription/createApprovedPayments": {
-      "post": {
-        "operationId": "SubscriptionController_approvedCreation",
-        "summary": "payment post  api also used by appSphere",
-        "parameters": [
-          {
-            "name": "key",
-            "in": "header",
-            "description": "API key",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateApprovedSubscriptionDto"
+  /**
+   * The function `Approvedcreate` performs various checks and processes to create a subscription for an
+   * approved product based on user and header information.
+   *
+   * :param CreateApprovedSubscriptionDto: CreateApprovedSubscriptionDto is an object containing data for
+   * creating an approved subscription. It likely includes properties such as appIdentifier, packageID,
+   * priceID, and other details required to set up a subscription for a user
+   * :type CreateApprovedSubscriptionDto: CreateApprovedSubscriptionDto
+   * :param HeaderDto: HeaderDto is an object containing key-value pairs that provide information about
+   * the request being made. In the code snippet provided, the HeaderDto is used to compare the key with
+   * the key stored in the database for a specific product approval. It is used to verify the
+   * authenticity of the request and ensure that the
+   * :type HeaderDto: HeaderDto2
+   * :param user: The `user` parameter in the `Approvedcreate` function seems to represent the user who
+   * is initiating the creation of an approved subscription. This user is likely authenticated and has
+   * specific details associated with them, such as an `id` that is used to identify them in the system
+   * :type user: User
+   * :return: The function `Approvedcreate` returns different responses based on the conditions met
+   * during its execution. Here are the possible return values:
+
+   */
+   
+     "/subscription/createApprovedPayments": {
+          "post": {
+            "operationId": "SubscriptionController_approvedCreation",
+            "summary": "payment post  api also used by appSphere",
+            "parameters": [
+              {
+                "name": "key",
+                "in": "header",
+                "description": "API key",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
               }
-            }
+            ],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateApprovedSubscriptionDto"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "401": {
+                "description": "Unauthorized to access this resource."
+              }
+            },
+            "tags": [
+              "Subscriptions"
+            ],
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
           }
         },
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "Subscriptions"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
 ##  static String getCards = "/api/payment-methods";
 
-/**
- * The `findAll` function retrieves payment methods associated with a specific user in descending
- * order.
- *
- * :param user: The `findAll` function takes a `user` object as a parameter. The function then uses the
- * `user.id` to find payment methods associated with that user in the database. The payment methods are
- * retrieved in descending order based on their `id` and returned as an object with a `data`
- * :type user: User
- * :return: An object is being returned with a property `data` that contains an array of payment
- * methods belonging to the specified user.
- */
-"/payment-methods": {
-      "get": {
-        "operationId": "PaymentMethodsController_findAll",
-        "summary": "fetch paymentMethod  api also used by appSphere",
-        "parameters": [],
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "Payment Methods"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
+  /**
+   * The `findAll` function retrieves payment methods associated with a specific user in descending
+   * order.
+   *
+   * :param user: The `findAll` function takes a `user` object as a parameter. The function then uses the
+   * `user.id` to find payment methods associated with that user in the database. The payment methods are
+   * retrieved in descending order based on their `id` and returned as an object with a `data`
+   * :type user: User
+   * :return: An object is being returned with a property `data` that contains an array of payment
+   * methods belonging to the specified user.
+   */
+
+    "/payment-methods": {
+              "get": {
+                "operationId": "PaymentMethodsController_findAll",
+                "summary": "fetch paymentMethod  api also used by appSphere",
+                "parameters": [],
+                "responses": {
+                  "401": {
+                    "description": "Unauthorized to access this resource."
+                  }
+                },
+                "tags": [
+                  "Payment Methods"
+                ],
+                "security": [
+                  {
+                    "bearer": []
+                  }
+                ]
+              }
+            },
 
 ##  static String paymentSheet = "/api/payment-methods/payment-sheet";
 
-/**
- * The function `createNewSetupIntent` creates a new setup intent for a user with a Stripe customer ID
- * and returns the ephemeral key, customer ID, and setup intent client secret.
- *
- * :param user: The `createNewSetupIntent` function takes a `User` object as a parameter. The function
- * first checks if the `customerId` property of the user is not null. If it is null, it throws an
- * HttpException with a message prompting the user to verify their account first to attach payment
- * methods
- * :type user: User
- * :return: The `createNewSetupIntent` function returns an object with the following structure:
- * ```json
- * {
- *   "data": {
- *     "ephemeralKey": "<ephemeralKey value>",
- *     "customer": "<user.customerId value>",
- *     "setupIntent": "<setupIntent.client_secret value>"
- *   }
- * }
- * ```
- */
+  /**
+   * The function `createNewSetupIntent` creates a new setup intent for a user with a Stripe customer ID
+   * and returns the ephemeral key, customer ID, and setup intent client secret.
+   *
+   * :param user: The `createNewSetupIntent` function takes a `User` object as a parameter. The function
+   * first checks if the `customerId` property of the user is not null. If it is null, it throws an
+   * HttpException with a message prompting the user to verify their account first to attach payment
+   * methods
+   * :type user: User
+   * :return: The `createNewSetupIntent` function returns an object with the following structure:
+   * ```json
+   * {
+   *   "data": {
+   *     "ephemeralKey": "<ephemeralKey value>",
+   *     "customer": "<user.customerId value>",
+   *     "setupIntent": "<setupIntent.client_secret value>"
+   *   }
+   * }
+   * ```
+   */
 
-   "/payment-methods/payment-sheet": {
-      "post": {
-        "operationId": "PaymentMethodsController_paymentSheet",
-        "summary": "fetch payment sheet api also used by appSphere",
-        "parameters": [],
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "Payment Methods"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
+     "/payment-methods/payment-sheet": {
+        "post": {
+          "operationId": "PaymentMethodsController_paymentSheet",
+          "summary": "fetch payment sheet api also used by appSphere",
+          "parameters": [],
+          "responses": {
+            "401": {
+              "description": "Unauthorized to access this resource."
+            }
+          },
+          "tags": [
+            "Payment Methods"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        }
+      },
 
 
 
@@ -985,6 +989,7 @@ This app aims to provide sample application that can be used as a developers gui
    * :type user: User
    * :return: { message: 'Default payment method updated' }
    */
+
     "/payment-methods/{id}/default": {
       "post": {
         "operationId": "PaymentMethodsController_setDefault",
@@ -1012,95 +1017,95 @@ This app aims to provide sample application that can be used as a developers gui
           }
         ]
       }
-    },
-
+    },      
 
 ##  static String appDownloaded = "/api/users/device";
-/**
-   * This TypeScript function creates user device data, checks if the data already exists, updates
-   * download count in the product table, and saves new user app data.
-   *
-   * :param user: The `user` parameter in the `createUserDeviceData` function represents the user object
-   * containing information about the user who is creating the device data.
-   * :type user: User
-   * :param data: The `data` parameter in the `createUserDeviceData` function seems to contain
-   * information related to a user's device data. It includes fields such as `appIdentifier`, `deviceId`,
-   * `countryCode`, `osVersion`, and `appVersion`. This data is used to create a new entry
-   * :type data: UserDeviceData
-   * :return: The function `createUserDeviceData` returns a Promise that resolves to either the newly
-   * created user device data if it doesn't already exist in the database, or the existing user device
-   * data if it already exists. If the user device data already exists, the function returns an object
-   * with code 200, status 'success', and the existing data. If the user device data is newly created,
-   * the function add the user device data.
-   */
- "/users/device": {
-      "post": {
-        "operationId": "UserController_createUserDeviceData",
-        "summary": "for installs of apps by users also used by appSphere",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserDeviceData"
+  /**
+     * This TypeScript function creates user device data, checks if the data already exists, updates
+     * download count in the product table, and saves new user app data.
+     *
+     * :param user: The `user` parameter in the `createUserDeviceData` function represents the user object
+     * containing information about the user who is creating the device data.
+     * :type user: User
+     * :param data: The `data` parameter in the `createUserDeviceData` function seems to contain
+     * information related to a user's device data. It includes fields such as `appIdentifier`, `deviceId`,
+     * `countryCode`, `osVersion`, and `appVersion`. This data is used to create a new entry
+     * :type data: UserDeviceData
+     * :return: The function `createUserDeviceData` returns a Promise that resolves to either the newly
+     * created user device data if it doesn't already exist in the database, or the existing user device
+     * data if it already exists. If the user device data already exists, the function returns an object
+     * with code 200, status 'success', and the existing data. If the user device data is newly created,
+     * the function add the user device data.
+     */
+     
+      "/users/device": {
+          "post": {
+            "operationId": "UserController_createUserDeviceData",
+            "summary": "for installs of apps by users also used by appSphere",
+            "parameters": [],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserDeviceData"
+                  }
+                }
               }
-            }
+            },
+            "responses": {
+              "401": {
+                "description": "Unauthorized to access this resource."
+              }
+            },
+            "tags": [
+              "users"
+            ],
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
           }
         },
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "users"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
 
 
 ##  static String installedApps = '/api/users/apps';
-/**
- * This TypeScript function retrieves user apps based on the user ID along with related product
- * information.
- *
- * :param userId: The `getUserApp` function is an asynchronous function that takes a `userId` parameter
- * of type `number`. It retrieves user apps from a repository based on the provided `userId` and
- * returns a Promise that resolves to the fetched apps. The function uses `await` to wait for the
- * asynchronous operation of
- * :type userId: number
- * :return: The `getUserApp` function is returning a Promise that resolves to an array of applications
- * associated with the user specified by the `userId`. The applications include related product
- * information such as icons and cover images.
- */
-    "/users/apps": {
-      "get": {
-        "operationId": "UserController_getUserApp2",
-        "summary": "get user apps also used by  appSphere",
-        "parameters": [],
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "users"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
+  /**
+  * This TypeScript function retrieves user apps based on the user ID along with related product
+  * information.
+  *
+  * :param userId: The `getUserApp` function is an asynchronous function that takes a `userId` parameter
+  * of type `number`. It retrieves user apps from a repository based on the provided `userId` and
+  * returns a Promise that resolves to the fetched apps. The function uses `await` to wait for the
+  * asynchronous operation of
+  * :type userId: number
+  * :return: The `getUserApp` function is returning a Promise that resolves to an array of applications
+  * associated with the user specified by the `userId`. The applications include related product
+  * information such as icons and cover images.
 
-
+  */
+  
+  "/users/apps": {
+    "get": {
+      "operationId": "UserController_getUserApp2",
+      "summary": "get user apps also used by  appSphere",
+      "parameters": [],
+      "responses": {
+        "401": {
+          "description": "Unauthorized to access this resource."
+        }
+      },
+      "tags": [
+        "users"
+      ],
+      "security": [
+        {
+          "bearer": []
+        }
+      ]
+    }
+  },
 
 ##  static String forgetPassword = '/api/users/forgot-password';
   /**
@@ -1114,6 +1119,7 @@ This app aims to provide sample application that can be used as a developers gui
    * :type email: string
    * :return: { message: 'OTP sent to your email', data: otpData }
    */
+
     "/users/forgot-password/{email}": {
       "get": {
         "operationId": "UserController_forgotPassword",
@@ -1139,23 +1145,24 @@ This app aims to provide sample application that can be used as a developers gui
       }
     },
 
-
 ##  static String resetPassword = '/api/users/reset-password';
-/**
- * The function `resetPassword` asynchronously resets a user's password after verifying an OTP.
- *
- * :param email: The `email` parameter is a string that represents the email address of the user for
- * whom the password is being reset
- * :type email: string
- * :param otp: One Time Password (OTP) sent to the user's email for verification
- * :type otp: string
- * :param password: The `resetPassword` function is used to reset a user's password. The `password`
- * parameter is the new password that the user wants to set for their account. This password will be
- * hashed using the `PasswordHashEngine` before being saved in the database
- * :type password: string
- * :return: { message: 'Password reset successfully' }
- */
-"/users/reset-password": {
+
+   /**
+   * The function `resetPassword` asynchronously resets a user's password after verifying an OTP.
+   *
+   * :param email: The `email` parameter is a string that represents the email address of the user for
+   * whom the password is being reset
+   * :type email: string
+   * :param otp: One Time Password (OTP) sent to the user's email for verification
+   * :type otp: string
+   * :param password: The `resetPassword` function is used to reset a user's password. The `password`
+   * parameter is the new password that the user wants to set for their account. This password will be
+   * hashed using the `PasswordHashEngine` before being saved in the database
+   * :type password: string
+   * :return: { message: 'Password reset successfully' }
+   */
+            
+    "/users/reset-password": {
       "post": {
         "operationId": "UserController_resetPassword",
         "summary": "reset password api also used by appSphere",
@@ -1179,7 +1186,8 @@ This app aims to provide sample application that can be used as a developers gui
           "users"
         ]
       }
-    },
+    },      
+
 
 
 
