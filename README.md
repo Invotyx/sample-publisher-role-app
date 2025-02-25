@@ -13,7 +13,7 @@ This app aims to provide sample application that can be used as a developers gui
    * `user` properties.
    */
 
-        "/auth/login": {
+    "/auth/login": {
       "post": {
         "operationId": "AuthController_login",
         "summary": "login api also used by appSphere",
@@ -51,7 +51,7 @@ This app aims to provide sample application that can be used as a developers gui
    * @returns The `socialLogin` function returns an object containing an `access_token` property.
    */
 
-       "/auth/social": {
+    "/auth/social": {
       "post": {
         "operationId": "AuthController_googleAuth",
         "summary": "google auth api also used by appSphere",
@@ -171,7 +171,7 @@ This app aims to provide sample application that can be used as a developers gui
    * object before returning it.
    */
 
-     "/auth/register": {
+    "/auth/register": {
       "post": {
         "operationId": "AuthController_register",
         "summary": "signup api also used by appSphere",
@@ -287,9 +287,11 @@ This app aims to provide sample application that can be used as a developers gui
  * :return: The `findAll` method is returning an object with two properties: `countries` and `total`.
  * The `countries` property contains an array of countries that match the search criteria, and the
  * `total` property contains the total count of countries that match the search criteria.
+
  */
 
- "get": {
+     "/countries": {
+      "get": {
         "operationId": "CountryController_findAll",
         "summary": "fetch countries api also used by appSphere",
         "parameters": [
@@ -329,7 +331,10 @@ This app aims to provide sample application that can be used as a developers gui
       }
     },
 
+
+ 
 ##  static String categories = "/api/category";
+
 
   /**
    * This function asynchronously retrieves all categories from a repository and returns them as a
@@ -353,7 +358,6 @@ This app aims to provide sample application that can be used as a developers gui
         ]
       }
     },
-
 ##  static String subscribedApps = '/api/products/subscribed';
 
 /**
@@ -369,8 +373,7 @@ This app aims to provide sample application that can be used as a developers gui
  * subscriptions.
  * - `message` (optional string): A message that can be included in the
  */
-
-   "/products/subscribed": {
+     "/products/subscribed": {
       "get": {
         "operationId": "ProductsController_getAllSubscribedProducts",
         "summary": "Get all  subscribed products against userId also used by appSphere",
@@ -404,8 +407,8 @@ This app aims to provide sample application that can be used as a developers gui
  * :return: The `getAllProductsPaginated` function returns a Promise that resolves to an object
  * containing two properties: `results` which is an array of Products, and `count` which is a number
  * representing the total count of products.
- */
 
+ */
  "/products": {
       "get": {
         "operationId": "ProductsController_getAllProductsPaginated",
@@ -453,33 +456,7 @@ This app aims to provide sample application that can be used as a developers gui
           "products"
         ]
       },
-      "post": {
-        "operationId": "ProductsController_createProduct",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateProductDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "products"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
+
     },
 
 
@@ -497,7 +474,7 @@ This app aims to provide sample application that can be used as a developers gui
  * `Products` and the `count` property is a number representing the total count of products.
  */
 
-  "/products/status": {
+    "/products/status": {
       "get": {
         "operationId": "ProductsController_getAllPublishedProductsPaginated",
         "summary": "fetch published products api also used by appSphere",
@@ -575,7 +552,7 @@ This app aims to provide sample application that can be used as a developers gui
  * :return: The `savedRating` object is being returned from the `addRating` function.
  */
 
-  "/rating/create": {
+    "/rating/create": {
       "post": {
         "operationId": "RatingController_createRating",
         "summary": "rating post api also used by appSphere",
@@ -619,7 +596,7 @@ This app aims to provide sample application that can be used as a developers gui
  * :return: The `getPaginatedRatings` function returns different data based on the conditions:
  */
 
-  "/rating/paginatedRatings": {
+    "/rating/paginatedRatings": {
       "get": {
         "operationId": "RatingController_getPaginatedRatings",
         "summary": "fetch rating  also used by appSphere",
@@ -682,36 +659,36 @@ This app aims to provide sample application that can be used as a developers gui
  * success message, and the data containing ratings for a specific product identified by
  * `appIdentifier` and a specific user identified by `userId`. The ratings include the rating value,
  * comment, product details (id and title), and user details (id and avatar).
+
  */
 
-
-  "/rating/{appIdentifier}": {
-      "get": {
-        "operationId": "RatingController_getRatings",
-        "summary": "all rating agaisnt appIdentifier and logged in user also used by appSphere",
-        "parameters": [
-          {
-            "name": "appIdentifier",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "rating"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
+ "/rating/{appIdentifier}": {
+  "get": {
+    "operationId": "RatingController_getRatings",
+    "summary": "All ratings against appIdentifier and logged-in user, also used by AppSphere.",
+    "parameters": [
+      {
+        "name": "appIdentifier",
+        "required": true,
+        "in": "path",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "401": {
+        "description": "Unauthorized to access this resource."
       }
     },
+    "tags": ["rating"],
+    "security": [
+      {
+        "bearer": []
+      }
+    ]
+  }
+}
 
+  
+## from here
