@@ -691,4 +691,496 @@ This app aims to provide sample application that can be used as a developers gui
 }
 
   
-## from here
+
+##  static String subscription = "/api/subscription";
+
+/**
+ * The `findAll` function retrieves subscriptions associated with a specific user, including related
+ * package and product information.
+ *
+ * :param user: The `findAll` method is an asynchronous function that retrieves subscriptions
+ * associated with a specific user. The `user` parameter represents the user for whom the subscriptions
+ * are being fetched. The method uses the `subscriptionRepo` repository to find subscriptions based on
+ * the user's ID. It includes various relations such as package
+ * :return: The `findAll` method is returning an object with a `data` property containing the
+ * subscriptions found for the specified user.
+ */
+ "/subscription": {
+      "get": {
+        "operationId": "SubscriptionController_findAll",
+        "summary": "fetch Subscriptions api also used by appSphere",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+
+##  static String restoreSubscription = "/api/subscription/restore";
+
+/**
+ * The function `restoreSubscription` retrieves an active subscription for a specific user and app
+ * identifier.
+ *
+ * :param appIdentifier: The `appIdentifier` parameter in the `restoreSubscription` function is a
+ * string that represents the identifier of the application for which the subscription needs to be
+ * restored. This identifier is used to filter the subscriptions based on the product associated with
+ * the subscription plan
+ * :type appIdentifier: string
+ * :param user: The `user` parameter in the `restoreSubscription` function represents the user for whom
+ * the subscription needs to be restored. It contains information about the user, such as their `id`,
+ * which is used to filter the subscriptions based on the user ID. This parameter is essential for
+ * identifying the user and retrieving
+ * :type user: User
+ * :return: The `restoreSubscription` function returns a Promise that resolves to an object with three
+ * properties: `code`, `status`, and `data`. The `code` property is a number, the `status` property is
+ * a string indicating the status of the operation (in this case, 'success'), and the `data` property
+ * contains the Subscription object that was retrieved based on the provided appIdentifier and user
+ */
+
+"/subscription/restore": {
+  "get": {
+    "operationId": "SubscriptionController_restoreSubscription",
+    "summary": "Restore subscription against userId and appIdentifier, also used by AppSphere.",
+    "parameters": [
+      {
+        "name": "appIdentifier",
+        "required": false,
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "401": {
+        "description": "Unauthorized to access this resource."
+      }
+    },
+    "tags": ["Subscriptions"],
+    "security": [
+      {
+        "bearer": []
+      }
+    ]
+  }
+}
+
+
+##  static String transactions = "/api/subscription";
+
+/**
+ * This TypeScript function creates a subscription for a user based on the provided package and price,
+ * handling various checks and interactions with the payment service.
+ *
+ * :param createSubscriptionDto: The `createSubscriptionDto` parameter in the `create` method is an
+ * object that contains data needed to create a new subscription. It likely includes properties such as
+ * `packageID` and `priceID` which are used to identify the package and price for the subscription
+ * :type createSubscriptionDto: CreateSubscriptionDto
+ * :param user: The `user` parameter in the `create` function represents the user who is creating a
+ * subscription. This user is an instance of the `User` class or type, and it contains information
+ * about the user, such as their `id`, `customerId`, and other relevant details needed for creating a
+ * subscription
+ * :type user: User
+ * :return: The function `create` is returning either an object containing the subscription data
+ * (`subscription_obj`) if the subscription creation is successful, or a string indicating that the
+ * subscription could not be created on Stripe if there is an issue during the process.
+ */
+ "/subscription": {
+      "post": {
+        "operationId": "SubscriptionController_create",
+        "summary": "subscriptions post api  also used by appSphere",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+    },
+
+##  static String createApprovedPayments = "/api/subscription/createApprovedPayments";
+
+/**
+ * The function `Approvedcreate` performs various checks and processes to create a subscription for an
+ * approved product based on user and header information.
+ *
+ * :param CreateApprovedSubscriptionDto: CreateApprovedSubscriptionDto is an object containing data for
+ * creating an approved subscription. It likely includes properties such as appIdentifier, packageID,
+ * priceID, and other details required to set up a subscription for a user
+ * :type CreateApprovedSubscriptionDto: CreateApprovedSubscriptionDto
+ * :param HeaderDto: HeaderDto is an object containing key-value pairs that provide information about
+ * the request being made. In the code snippet provided, the HeaderDto is used to compare the key with
+ * the key stored in the database for a specific product approval. It is used to verify the
+ * authenticity of the request and ensure that the
+ * :type HeaderDto: HeaderDto2
+ * :param user: The `user` parameter in the `Approvedcreate` function seems to represent the user who
+ * is initiating the creation of an approved subscription. This user is likely authenticated and has
+ * specific details associated with them, such as an `id` that is used to identify them in the system
+ * :type user: User
+ * :return: The function `Approvedcreate` returns different responses based on the conditions met
+ * during its execution. Here are the possible return values:
+ */
+ "/subscription/createApprovedPayments": {
+      "post": {
+        "operationId": "SubscriptionController_approvedCreation",
+        "summary": "payment post  api also used by appSphere",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "header",
+            "description": "API key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApprovedSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+##  static String getCards = "/api/payment-methods";
+
+/**
+ * The `findAll` function retrieves payment methods associated with a specific user in descending
+ * order.
+ *
+ * :param user: The `findAll` function takes a `user` object as a parameter. The function then uses the
+ * `user.id` to find payment methods associated with that user in the database. The payment methods are
+ * retrieved in descending order based on their `id` and returned as an object with a `data`
+ * :type user: User
+ * :return: An object is being returned with a property `data` that contains an array of payment
+ * methods belonging to the specified user.
+ */
+"/payment-methods": {
+      "get": {
+        "operationId": "PaymentMethodsController_findAll",
+        "summary": "fetch paymentMethod  api also used by appSphere",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "Payment Methods"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+
+##  static String paymentSheet = "/api/payment-methods/payment-sheet";
+
+/**
+ * The function `createNewSetupIntent` creates a new setup intent for a user with a Stripe customer ID
+ * and returns the ephemeral key, customer ID, and setup intent client secret.
+ *
+ * :param user: The `createNewSetupIntent` function takes a `User` object as a parameter. The function
+ * first checks if the `customerId` property of the user is not null. If it is null, it throws an
+ * HttpException with a message prompting the user to verify their account first to attach payment
+ * methods
+ * :type user: User
+ * :return: The `createNewSetupIntent` function returns an object with the following structure:
+ * ```json
+ * {
+ *   "data": {
+ *     "ephemeralKey": "<ephemeralKey value>",
+ *     "customer": "<user.customerId value>",
+ *     "setupIntent": "<setupIntent.client_secret value>"
+ *   }
+ * }
+ * ```
+ */
+
+   "/payment-methods/payment-sheet": {
+      "post": {
+        "operationId": "PaymentMethodsController_paymentSheet",
+        "summary": "fetch payment sheet api also used by appSphere",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "Payment Methods"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+
+
+
+##  static String setDefault = '/api/payment-methods/';
+
+  /**
+   * The function `setAsDefault` updates a user's default payment method both on Stripe and in the
+   * database.
+   *
+   * :param id: The `id` parameter in the `setAsDefault` function is used to identify the specific
+   * payment method that the user wants to set as default. It is a number that corresponds to the ID of
+   * the payment method in the database
+   * :type id: number
+   * :param user: The `user` parameter in the `setAsDefault` function is an object that represents a
+   * user. It likely contains properties such as `id` and `customerId`. This user object is used to
+   * identify the user whose payment method is being set as default
+   * :type user: User
+   * :return: { message: 'Default payment method updated' }
+   */
+    "/payment-methods/{id}/default": {
+      "post": {
+        "operationId": "PaymentMethodsController_setDefault",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "Payment Methods"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+
+
+##  static String appDownloaded = "/api/users/device";
+/**
+   * This TypeScript function creates user device data, checks if the data already exists, updates
+   * download count in the product table, and saves new user app data.
+   *
+   * :param user: The `user` parameter in the `createUserDeviceData` function represents the user object
+   * containing information about the user who is creating the device data.
+   * :type user: User
+   * :param data: The `data` parameter in the `createUserDeviceData` function seems to contain
+   * information related to a user's device data. It includes fields such as `appIdentifier`, `deviceId`,
+   * `countryCode`, `osVersion`, and `appVersion`. This data is used to create a new entry
+   * :type data: UserDeviceData
+   * :return: The function `createUserDeviceData` returns a Promise that resolves to either the newly
+   * created user device data if it doesn't already exist in the database, or the existing user device
+   * data if it already exists. If the user device data already exists, the function returns an object
+   * with code 200, status 'success', and the existing data. If the user device data is newly created,
+   * the function add the user device data.
+   */
+ "/users/device": {
+      "post": {
+        "operationId": "UserController_createUserDeviceData",
+        "summary": "for installs of apps by users also used by appSphere",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDeviceData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+
+
+##  static String installedApps = '/api/users/apps';
+/**
+ * This TypeScript function retrieves user apps based on the user ID along with related product
+ * information.
+ *
+ * :param userId: The `getUserApp` function is an asynchronous function that takes a `userId` parameter
+ * of type `number`. It retrieves user apps from a repository based on the provided `userId` and
+ * returns a Promise that resolves to the fetched apps. The function uses `await` to wait for the
+ * asynchronous operation of
+ * :type userId: number
+ * :return: The `getUserApp` function is returning a Promise that resolves to an array of applications
+ * associated with the user specified by the `userId`. The applications include related product
+ * information such as icons and cover images.
+ */
+    "/users/apps": {
+      "get": {
+        "operationId": "UserController_getUserApp2",
+        "summary": "get user apps also used by  appSphere",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+
+
+
+##  static String forgetPassword = '/api/users/forgot-password';
+  /**
+   * The `forgotPassword` function sends an OTP to the provided email for the purpose of resetting a
+   * forgotten password.
+   *
+   * :param email: The `forgotPassword` function is an asynchronous function that takes an `email`
+   * parameter of type string. This function sends an OTP (One-Time Password) to the provided email
+   * address for the purpose of resetting a forgotten password. The OTP data is obtained by calling the
+   * `sendOtp` function with
+   * :type email: string
+   * :return: { message: 'OTP sent to your email', data: otpData }
+   */
+    "/users/forgot-password/{email}": {
+      "get": {
+        "operationId": "UserController_forgotPassword",
+        "summary": "forgot password api also used by appSphere",
+        "parameters": [
+          {
+            "name": "email",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+
+
+##  static String resetPassword = '/api/users/reset-password';
+/**
+ * The function `resetPassword` asynchronously resets a user's password after verifying an OTP.
+ *
+ * :param email: The `email` parameter is a string that represents the email address of the user for
+ * whom the password is being reset
+ * :type email: string
+ * :param otp: One Time Password (OTP) sent to the user's email for verification
+ * :type otp: string
+ * :param password: The `resetPassword` function is used to reset a user's password. The `password`
+ * parameter is the new password that the user wants to set for their account. This password will be
+ * hashed using the `PasswordHashEngine` before being saved in the database
+ * :type password: string
+ * :return: { message: 'Password reset successfully' }
+ */
+"/users/reset-password": {
+      "post": {
+        "operationId": "UserController_resetPassword",
+        "summary": "reset password api also used by appSphere",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+
+
+
+
