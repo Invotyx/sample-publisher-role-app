@@ -373,27 +373,28 @@ This app aims to provide sample application that can be used as a developers gui
    * subscriptions.
    * - `message` (optional string): A message that can be included in the
    */
+
    
-"/products/subscribed": {
-"get": {
-  "operationId": "ProductsController_getAllSubscribedProducts",
-  "summary": "Get all  subscribed products against userId also used by appSphere",
-  "parameters": [],
-  "responses": {
-    "401": {
-      "description": "Unauthorized to access this resource."
-    }
-  },
-  "tags": [
-    "products"
-  ],
-  "security": [
-    {
-      "bearer": []
-    }
-  ]
-}
-},
+    "/products/subscribed": {
+        "get": {
+          "operationId": "ProductsController_getAllSubscribedProducts",
+          "summary": "Get all  subscribed products against userId also used by appSphere",
+          "parameters": [],
+          "responses": {
+            "401": {
+              "description": "Unauthorized to access this resource."
+            }
+          },
+          "tags": [
+            "products"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        }
+      }, 
 
 
 ##  static String products = "/api/products";
@@ -410,75 +411,11 @@ This app aims to provide sample application that can be used as a developers gui
  * representing the total count of products.
 
  */
-    "/products": {
-    "get": {
-      "operationId": "ProductsController_getAllProductsPaginated",
-      "summary": "fetch products api also used by appSphere",
-      "parameters": [
-        {
-          "name": "page",
-          "required": false,
-          "in": "query",
-          "schema": {
-            "type": "number"
-          }
-        },
-        {
-          "name": "pageSize",
-          "required": false,
-          "in": "query",
-          "schema": {
-            "type": "number"
-          }
-        },
-        {
-          "name": "query",
-          "required": false,
-          "in": "query",
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "name": "categoryId",
-          "required": false,
-          "in": "query",
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": ""
-        }
-      },
-      "tags": [
-        "products"
-      ]
-    },
-
-    },
-
-
-##  static String productsByStatus = "/api/products/status";
-
-/**
- * The function `getAllPublishedProductsPaginated` retrieves published products based on pagination,
- * search query, and category ID, returning results with average ratings.
- *
- * :param data: The `getAllPublishedProductsPaginated` function takes a `paginationDto2` object as its
- * parameter, which includes the following properties:
- * :type data: paginationDto2
- * :return: The `getAllPublishedProductsPaginated` function returns a Promise that resolves to an
- * object containing two properties: `results` and `count`. The `results` property is an array of
- * `Products` and the `count` property is a number representing the total count of products.
- */
-
-    "/products/status": {
+ 
+      "/products": {
       "get": {
-        "operationId": "ProductsController_getAllPublishedProductsPaginated",
-        "summary": "fetch published products api also used by appSphere",
+        "operationId": "ProductsController_getAllProductsPaginated",
+        "summary": "fetch products api also used by appSphere",
         "parameters": [
           {
             "name": "page",
@@ -505,14 +442,6 @@ This app aims to provide sample application that can be used as a developers gui
             }
           },
           {
-            "name": "status",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "categoryId",
             "required": false,
             "in": "query",
@@ -522,20 +451,93 @@ This app aims to provide sample application that can be used as a developers gui
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
+          "200": {
+            "description": ""
           }
         },
         "tags": [
           "products"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
         ]
-      }
+      },
+
     },
+
+
+##  static String productsByStatus = "/api/products/status";
+
+/**
+ * The function `getAllPublishedProductsPaginated` retrieves published products based on pagination,
+ * search query, and category ID, returning results with average ratings.
+ *
+ * :param data: The `getAllPublishedProductsPaginated` function takes a `paginationDto2` object as its
+ * parameter, which includes the following properties:
+ * :type data: paginationDto2
+ * :return: The `getAllPublishedProductsPaginated` function returns a Promise that resolves to an
+ * object containing two properties: `results` and `count`. The `results` property is an array of
+ * `Products` and the `count` property is a number representing the total count of products.
+ */
+
+        "/products/status": {
+          "get": {
+            "operationId": "ProductsController_getAllPublishedProductsPaginated",
+            "summary": "fetch published products api also used by appSphere",
+            "parameters": [
+              {
+                "name": "page",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "number"
+                }
+              },
+              {
+                "name": "pageSize",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "number"
+                }
+              },
+              {
+                "name": "query",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "status",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "categoryId",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "401": {
+                "description": "Unauthorized to access this resource."
+              }
+            },
+            "tags": [
+              "products"
+            ],
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
 
 
 ##  static String postRating = "/api/rating/create";
@@ -553,36 +555,36 @@ This app aims to provide sample application that can be used as a developers gui
  * :return: The `savedRating` object is being returned from the `addRating` function.
  */
 
-    "/rating/create": {
-      "post": {
-        "operationId": "RatingController_createRating",
-        "summary": "rating post api also used by appSphere",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddRatingDTO"
+        "/rating/create": {
+          "post": {
+            "operationId": "RatingController_createRating",
+            "summary": "rating post api also used by appSphere",
+            "parameters": [],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddRatingDTO"
+                  }
+                }
               }
-            }
+            },
+            "responses": {
+              "401": {
+                "description": "Unauthorized to access this resource."
+              }
+            },
+            "tags": [
+              "rating"
+            ],
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
           }
         },
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "rating"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
 
 
 ##  static String getRating = "/api/rating/paginatedRatings";
@@ -597,51 +599,51 @@ This app aims to provide sample application that can be used as a developers gui
  * :return: The `getPaginatedRatings` function returns different data based on the conditions:
  */
 
-    "/rating/paginatedRatings": {
-      "get": {
-        "operationId": "RatingController_getPaginatedRatings",
-        "summary": "fetch rating  also used by appSphere",
-        "parameters": [
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "pageSize",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "appIdentifier",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
+        "/rating/paginatedRatings": {
+          "get": {
+            "operationId": "RatingController_getPaginatedRatings",
+            "summary": "fetch rating  also used by appSphere",
+            "parameters": [
+              {
+                "name": "page",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "number"
+                }
+              },
+              {
+                "name": "pageSize",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "number"
+                }
+              },
+              {
+                "name": "appIdentifier",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "401": {
+                "description": "Unauthorized to access this resource."
+              }
+            },
+            "tags": [
+              "rating"
+            ],
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
           }
         },
-        "tags": [
-          "rating"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
 
 ##  static String getUserRating = "/api/rating/";
 
@@ -663,33 +665,33 @@ This app aims to provide sample application that can be used as a developers gui
 
  */
 
- "/rating/{appIdentifier}": {
-  "get": {
-    "operationId": "RatingController_getRatings",
-    "summary": "All ratings against appIdentifier and logged-in user, also used by AppSphere.",
-    "parameters": [
-      {
-        "name": "appIdentifier",
-        "required": true,
-        "in": "path",
-        "schema": {
-          "type": "string"
-        }
+     "/rating/{appIdentifier}": {
+      "get": {
+        "operationId": "RatingController_getRatings",
+        "summary": "All ratings against appIdentifier and logged-in user, also used by AppSphere.",
+        "parameters": [
+          {
+            "name": "appIdentifier",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": ["rating"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
-    ],
-    "responses": {
-      "401": {
-        "description": "Unauthorized to access this resource."
-      }
-    },
-    "tags": ["rating"],
-    "security": [
-      {
-        "bearer": []
-      }
-    ]
-  }
-}
+    }
 
   
 
@@ -705,27 +707,29 @@ This app aims to provide sample application that can be used as a developers gui
  * the user's ID. It includes various relations such as package
  * :return: The `findAll` method is returning an object with a `data` property containing the
  * subscriptions found for the specified user.
+
  */
- "/subscription": {
-      "get": {
-        "operationId": "SubscriptionController_findAll",
-        "summary": "fetch Subscriptions api also used by appSphere",
-        "parameters": [],
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
+ 
+     "/subscription": {
+          "get": {
+            "operationId": "SubscriptionController_findAll",
+            "summary": "fetch Subscriptions api also used by appSphere",
+            "parameters": [],
+            "responses": {
+              "401": {
+                "description": "Unauthorized to access this resource."
+              }
+            },
+            "tags": [
+              "Subscriptions"
+            ],
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
           }
         },
-        "tags": [
-          "Subscriptions"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
 
 ##  static String restoreSubscription = "/api/subscription/restore";
 
@@ -749,33 +753,33 @@ This app aims to provide sample application that can be used as a developers gui
  * contains the Subscription object that was retrieved based on the provided appIdentifier and user
  */
 
-"/subscription/restore": {
-  "get": {
-    "operationId": "SubscriptionController_restoreSubscription",
-    "summary": "Restore subscription against userId and appIdentifier, also used by AppSphere.",
-    "parameters": [
-      {
-        "name": "appIdentifier",
-        "required": false,
-        "in": "query",
-        "schema": {
-          "type": "string"
+        "/subscription/restore": {
+          "get": {
+            "operationId": "SubscriptionController_restoreSubscription",
+            "summary": "Restore subscription against userId and appIdentifier, also used by AppSphere.",
+            "parameters": [
+              {
+                "name": "appIdentifier",
+                "required": false,
+                "in": "query",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "401": {
+                "description": "Unauthorized to access this resource."
+              }
+            },
+            "tags": ["Subscriptions"],
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
         }
-      }
-    ],
-    "responses": {
-      "401": {
-        "description": "Unauthorized to access this resource."
-      }
-    },
-    "tags": ["Subscriptions"],
-    "security": [
-      {
-        "bearer": []
-      }
-    ]
-  }
-}
 
 
 ##  static String transactions = "/api/subscription";
@@ -796,37 +800,39 @@ This app aims to provide sample application that can be used as a developers gui
  * :return: The function `create` is returning either an object containing the subscription data
  * (`subscription_obj`) if the subscription creation is successful, or a string indicating that the
  * subscription could not be created on Stripe if there is an issue during the process.
+
  */
- "/subscription": {
-      "post": {
-        "operationId": "SubscriptionController_create",
-        "summary": "subscriptions post api  also used by appSphere",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateSubscriptionDto"
+ 
+     "/subscription": {
+          "post": {
+            "operationId": "SubscriptionController_create",
+            "summary": "subscriptions post api  also used by appSphere",
+            "parameters": [],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateSubscriptionDto"
+                  }
+                }
               }
-            }
-          }
+            },
+            "responses": {
+              "401": {
+                "description": "Unauthorized to access this resource."
+              }
+            },
+            "tags": [
+              "Subscriptions"
+            ],
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          },
         },
-        "responses": {
-          "401": {
-            "description": "Unauthorized to access this resource."
-          }
-        },
-        "tags": [
-          "Subscriptions"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      },
-    },
 
 ##  static String createApprovedPayments = "/api/subscription/createApprovedPayments";
 
@@ -1086,26 +1092,26 @@ This app aims to provide sample application that can be used as a developers gui
 
   */
   
-  "/users/apps": {
-    "get": {
-      "operationId": "UserController_getUserApp2",
-      "summary": "get user apps also used by  appSphere",
-      "parameters": [],
-      "responses": {
-        "401": {
-          "description": "Unauthorized to access this resource."
-        }
-      },
-      "tags": [
-        "users"
-      ],
-      "security": [
-        {
-          "bearer": []
-        }
-      ]
-    }
-  },
+    "/users/apps": {
+      "get": {
+        "operationId": "UserController_getUserApp2",
+        "summary": "get user apps also used by  appSphere",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized to access this resource."
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
 
 ##  static String forgetPassword = '/api/users/forgot-password';
   /**
